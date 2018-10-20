@@ -1,6 +1,8 @@
-import React, {Component} from 'react';
+import React from 'react';
 import MediaCapturer from 'react-multimedia-capture';
 import '../../stylesheets/recorder.css';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 
 class Recorder extends React.Component {
     constructor() {
@@ -10,8 +12,8 @@ class Recorder extends React.Component {
             rejectedReason: '',
             recording: false,
             paused: false,
-            replay: true
-        };
+            replay: false
+        };  
 
         this.handleRequest = this.handleRequest.bind(this);
         this.handleGranted = this.handleGranted.bind(this);
@@ -24,6 +26,8 @@ class Recorder extends React.Component {
         this.setStreamToVideo = this.setStreamToVideo.bind(this);
         this.releaseStreamFromVideo = this.releaseStreamFromVideo.bind(this);
         this.downloadVideo = this.downloadVideo.bind(this);
+        this.upload = this.upload.bind(this);
+        this.showFile = this.showFile.bind(this);
     }
 
     handleRequest() {
@@ -51,12 +55,14 @@ class Recorder extends React.Component {
 
     handleStop(blob) {
         this.setState({
-            recording: false
+            recording: false,
+            replay: true
         });
 
         this.releaseStreamFromVideo();
 
         console.log('Recording Stopped.');
+
         this.downloadVideo(blob);
     }
 
@@ -101,6 +107,25 @@ class Recorder extends React.Component {
         this.refs.app.querySelector('video').src = '';
     }
 
+    redo() {
+        let replayContainer = this.refs.app.querySelector('#replayContainer');
+        replayContainer.innerHTML = '';
+        this.setState({
+            replay: false
+        });
+    }
+
+    upload() {
+        let x = document.createElement("INPUT");
+        x.setAttribute("type", "file");
+        this.refs.app.querySelector('#replayContainer').appendChild(x);
+        setInterval(() => console.log(x), 20000);
+    }
+
+    showFile(input) {
+        console.log(input);
+    }
+
     downloadVideo(blob) {
         console.log(blob);
         let url = URL.createObjectURL(blob);
@@ -108,7 +133,7 @@ class Recorder extends React.Component {
         let replayContainer = this.refs.app.querySelector('#replayContainer');
         replayContainer.innerHTML = '';
         let videoDOM = document.createElement('video');
-        videoDOM.setAttribute('controls','');
+        videoDOM.setAttribute('controls', '');
         let sourceDOM = document.createElement('source');
         sourceDOM.setAttribute('src', url);
         sourceDOM.setAttribute('type', 'video/webm');
@@ -122,42 +147,46 @@ class Recorder extends React.Component {
         const recording = this.state.recording;
         const paused = this.state.paused;
 
+        let mediaCapturer = !this.state.replay ? <MediaCapturer
+            constraints={{audio: true, video: true}}
+            timeSlice={10}
+            onRequestPermission={this.handleRequest}
+            onGranted={this.handleGranted}
+            onDenied={this.handleDenied}
+            onStart={this.handleStart}
+            onStop={this.handleStop}
+            onPause={this.handlePause}
+            onResume={this.handleResume}
+            onError={this.handleError}
+            onStreamClosed={this.handleStreamClose}
+            render={({request, start, stop, pause, resume}) =>
+                <div>
+                    {!granted && <Button variant="contained" onClick={request}>Get Permission</Button>}
+                    <Button variant="contained" className={'button-margin'} onClick={start}>Start</Button>
+                    <Button variant="contained" className={'button-margin'} onClick={stop}>Stop</Button>
+                    or
+                    <Button variant="contained" className={'button-margin'}><input type='file' onChange={(e) => this.showFile(e.target.files[0])}/></Button>
+
+                    {recording ? <p className={'recordingTag'}>recording</p> : null}
+                    {paused ? <p className={'recordingTag'}>paused</p> : null}
+                    <br/>
+                    <video autoPlay></video>
+                </div>
+            }/> : null;
+
+        let replayButtons = this.state.replay ? <div>
+            <Button variant="contained" className={'button-margin'} onClick={this.redo.bind(this)}>Do it again</Button>
+            <Button variant="contained" className={'button-margin'}>Save to my CV</Button>
+        </div> : null;
+
         return (
             <div ref="app">
-                <h3>Video Recorder</h3>
-                <MediaCapturer
-                    constraints={{audio: true, video: true}}
-                    timeSlice={10}
-                    onRequestPermission={this.handleRequest}
-                    onGranted={this.handleGranted}
-                    onDenied={this.handleDenied}
-                    onStart={this.handleStart}
-                    onStop={this.handleStop}
-                    onPause={this.handlePause}
-                    onResume={this.handleResume}
-                    onError={this.handleError}
-                    onStreamClosed={this.handleStreamClose}
-                    render={({request, start, stop, pause, resume}) =>
-                        <div>
-                            <p>Granted: {granted.toString()}</p>
-                            <p>Rejected Reason: {rejectedReason}</p>
-                            <p>Recording: {recording.toString()}</p>
-                            <p>Paused: {paused.toString()}</p>
-
-                            {!granted && <button onClick={request}>Get Permission</button>}
-                            <button onClick={start}>Start</button>
-                            <button onClick={stop}>Stop</button>
-                            <button onClick={pause}>Pause</button>
-                            <button onClick={resume}>Resume</button>
-
-                            <p>Streaming test</p>
-                            <video autoPlay></video>
-                            <div id="replayContainer">
-                            </div>
-                            <button>Do it again</button>
-                            <button>Save to my CV</button>
-                        </div>
-                    }/>
+                <Typography variant='h4' className={'margin-h-1'}>Record your SnapCV!</Typography>
+                <Typography varant='h5'>Tell us in 1-5 minutes about:</Typography>
+                <Typography varant='h5' className={'margin-bottom-1'}>Who you are, your education, your skills and your work experience</Typography>
+                {mediaCapturer}
+                <div id="replayContainer"></div>
+                {replayButtons}
             </div>
         );
     }
