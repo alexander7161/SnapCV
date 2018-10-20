@@ -13,7 +13,7 @@ class Recorder extends React.Component {
             recording: false,
             paused: false,
             replay: false
-        };  
+        };
 
         this.handleRequest = this.handleRequest.bind(this);
         this.handleGranted = this.handleGranted.bind(this);
@@ -129,6 +129,7 @@ class Recorder extends React.Component {
     downloadVideo(blob) {
         console.log(blob);
         let url = URL.createObjectURL(blob);
+        console.log(url);
 
         let replayContainer = this.refs.app.querySelector('#replayContainer');
         replayContainer.innerHTML = '';
@@ -180,7 +181,7 @@ class Recorder extends React.Component {
         </div> : null;
 
         return (
-            <div ref="app">
+            <div ref="app" className={'recorder'}>
                 <Typography variant='h4' className={'margin-h-1'}>Record your SnapCV!</Typography>
                 <Typography varant='h5'>Tell us in 1-5 minutes about:</Typography>
                 <Typography varant='h5' className={'margin-bottom-1'}>Who you are, your education, your skills and your work experience</Typography>
