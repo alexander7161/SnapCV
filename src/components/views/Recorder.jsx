@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import MediaCapturer from 'react-multimedia-capture';
-import './recorder.css';
+import '../recorder.css';
 
 class VideoExample extends React.Component {
     constructor() {
