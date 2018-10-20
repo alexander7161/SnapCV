@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import '../stylesheets/navbar.css';
 import LandingPage from './views/LandingPage';
-import VideoExample from './views/VideoExample';
+import Recorder from './views/Recorder';
 import ShowSnapCV from './views/ShowSnapCV';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -12,7 +12,7 @@ import Typography from '@material-ui/core/Typography';
 const routes = [
     {
         path: "/create",
-        component: VideoExample
+        component: Recorder
     },
     {
         path: "/show",
