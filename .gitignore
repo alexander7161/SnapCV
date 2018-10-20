@@ -19,3 +19,12 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# IntelliJ project files
+.idea
+.idea/*
+*.iml
+out
+gen### Java template
+# Compiled class file
+*.class
