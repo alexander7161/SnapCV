@@ -10,7 +10,7 @@ import '../../stylesheets/views/Landingpage.css';
 class LandingPage extends Component {
     render() {
         return (
-            <div>Landing Page</div>
+            <div>LandingPage</div>
         );
     }
 }
