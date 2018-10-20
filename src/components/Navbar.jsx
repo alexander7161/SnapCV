@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Redirect, Route, Link } from "react-router-dom";
 import '../stylesheets/navbar.css';
 import LandingPage from './views/LandingPage';
 import Recorder from './views/Recorder';
@@ -8,14 +8,14 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 
-// Landing-Page Route is configured seperatly
+// Landing-Page and Show Route is configured seperatly
 const routes = [
     {
         path: "/create",
         component: Recorder
     },
     {
-        path: "/show",
+        path: "/show/:code",
         component: ShowSnapCV
     }
 ];
@@ -48,6 +48,9 @@ const Navbar = () => {
                     </Toolbar>
                 </AppBar>            
             <Route exact path="/" component={LandingPage} />
+            <Route path="/show"  component={() => ( 
+                window.location.replace("https://www.infojobs.net/api/oauth/user-authorize/index.xhtml?scope=CV&client_id=a4336c36c6924b6d86a7975d4cd2baca&redirect_uri=https://snapcv-220010.appspot.com/show&response_type=code")
+                )}/>
             {routes.map((route, i) => <RouteWithSubRoutes key={i} {...route} />)}
             </div>
         </Router>
