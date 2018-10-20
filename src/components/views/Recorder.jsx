@@ -1,15 +1,16 @@
 import React, {Component} from 'react';
 import MediaCapturer from 'react-multimedia-capture';
-import '../recorder.css';
+import '../../stylesheets/recorder.css';
 
-class VideoExample extends React.Component {
+class Recorder extends React.Component {
     constructor() {
         super();
         this.state = {
             granted: false,
             rejectedReason: '',
             recording: false,
-            paused: false
+            paused: false,
+            replay: true
         };
 
         this.handleRequest = this.handleRequest.bind(this);
@@ -103,12 +104,6 @@ class VideoExample extends React.Component {
     downloadVideo(blob) {
         console.log(blob);
         let url = URL.createObjectURL(blob);
-        let a = document.createElement('a');
-        a.style.display = 'none';
-        a.href = url;
-        a.target = '_blank';
-        document.body.appendChild(a);
-        console.log(a);
 
         let replayContainer = this.refs.app.querySelector('#replayContainer');
         replayContainer.innerHTML = '';
@@ -119,8 +114,6 @@ class VideoExample extends React.Component {
         sourceDOM.setAttribute('type', 'video/webm');
         videoDOM.appendChild(sourceDOM);
         replayContainer.appendChild(videoDOM);
-
-
     }
 
     render() {
@@ -161,6 +154,8 @@ class VideoExample extends React.Component {
                             <video autoPlay></video>
                             <div id="replayContainer">
                             </div>
+                            <button>Do it again</button>
+                            <button>Save to my CV</button>
                         </div>
                     }/>
             </div>
@@ -168,4 +163,4 @@ class VideoExample extends React.Component {
     }
 }
 
-export default VideoExample;
+export default Recorder;
