@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import MediaCapturer from 'react-multimedia-capture';
 import '../../stylesheets/recorder.css';
 import Button from '@material-ui/core/Button';
@@ -13,7 +13,7 @@ class Recorder extends React.Component {
             recording: false,
             paused: false,
             replay: false
-        };
+        };  
 
         this.handleRequest = this.handleRequest.bind(this);
         this.handleGranted = this.handleGranted.bind(this);
