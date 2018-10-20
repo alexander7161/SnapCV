@@ -1,14 +1,16 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import MediaCapturer from 'react-multimedia-capture';
+import '../../stylesheets/recorder.css';
 
-class VideoExample extends React.Component {
+class Recorder extends React.Component {
     constructor() {
         super();
         this.state = {
             granted: false,
             rejectedReason: '',
             recording: false,
-            paused: false
+            paused: false,
+            replay: true
         };
 
         this.handleRequest = this.handleRequest.bind(this);
@@ -23,17 +25,21 @@ class VideoExample extends React.Component {
         this.releaseStreamFromVideo = this.releaseStreamFromVideo.bind(this);
         this.downloadVideo = this.downloadVideo.bind(this);
     }
+
     handleRequest() {
         console.log('Request Recording...');
     }
+
     handleGranted() {
-        this.setState({ granted: true });
+        this.setState({granted: true});
         console.log('Permission Granted!');
     }
+
     handleDenied(err) {
-        this.setState({ rejectedReason: err.name });
+        this.setState({rejectedReason: err.name});
         console.log('Permission Denied!', err);
     }
+
     handleStart(stream) {
         this.setState({
             recording: true
@@ -42,6 +48,7 @@ class VideoExample extends React.Component {
         this.setStreamToVideo(stream);
         console.log('Recording Started.');
     }
+
     handleStop(blob) {
         this.setState({
             recording: false
@@ -52,6 +59,7 @@ class VideoExample extends React.Component {
         console.log('Recording Stopped.');
         this.downloadVideo(blob);
     }
+
     handlePause() {
         this.releaseStreamFromVideo();
 
@@ -59,6 +67,7 @@ class VideoExample extends React.Component {
             paused: true
         });
     }
+
     handleResume(stream) {
         this.setStreamToVideo(stream);
 
@@ -66,37 +75,47 @@ class VideoExample extends React.Component {
             paused: false
         });
     }
+
     handleError(err) {
         console.log(err);
     }
+
     handleStreamClose() {
         this.setState({
             granted: false
         });
     }
+
     setStreamToVideo(stream) {
         let video = this.refs.app.querySelector('video');
 
-        if(window.URL) {
+        if (window.URL) {
             video.src = window.URL.createObjectURL(stream);
         }
         else {
             video.src = stream;
         }
     }
+
     releaseStreamFromVideo() {
         this.refs.app.querySelector('video').src = '';
     }
-    downloadVideo(blob) {
-        let url = URL.createObjectURL(blob);
-        let a = document.createElement('a');
-        a.style.display = 'none';
-        a.href = url;
-        a.target = '_blank';
-        document.body.appendChild(a);
 
-        a.click();
+    downloadVideo(blob) {
+        console.log(blob);
+        let url = URL.createObjectURL(blob);
+
+        let replayContainer = this.refs.app.querySelector('#replayContainer');
+        replayContainer.innerHTML = '';
+        let videoDOM = document.createElement('video');
+        videoDOM.setAttribute('controls','');
+        let sourceDOM = document.createElement('source');
+        sourceDOM.setAttribute('src', url);
+        sourceDOM.setAttribute('type', 'video/webm');
+        videoDOM.appendChild(sourceDOM);
+        replayContainer.appendChild(videoDOM);
     }
+
     render() {
         const granted = this.state.granted;
         const rejectedReason = this.state.rejectedReason;
@@ -107,7 +126,7 @@ class VideoExample extends React.Component {
             <div ref="app">
                 <h3>Video Recorder</h3>
                 <MediaCapturer
-                    constraints={{ audio: true, video: true }}
+                    constraints={{audio: true, video: true}}
                     timeSlice={10}
                     onRequestPermission={this.handleRequest}
                     onGranted={this.handleGranted}
@@ -118,7 +137,7 @@ class VideoExample extends React.Component {
                     onResume={this.handleResume}
                     onError={this.handleError}
                     onStreamClosed={this.handleStreamClose}
-                    render={({ request, start, stop, pause, resume }) =>
+                    render={({request, start, stop, pause, resume}) =>
                         <div>
                             <p>Granted: {granted.toString()}</p>
                             <p>Rejected Reason: {rejectedReason}</p>
@@ -133,11 +152,15 @@ class VideoExample extends React.Component {
 
                             <p>Streaming test</p>
                             <video autoPlay></video>
+                            <div id="replayContainer">
+                            </div>
+                            <button>Do it again</button>
+                            <button>Save to my CV</button>
                         </div>
-                    } />
+                    }/>
             </div>
         );
     }
 }
 
-export default VideoExample;
+export default Recorder;

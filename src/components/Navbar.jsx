@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import LandingPage from './views/LandingPage';
-import VideoExample from './views/VideoExample';
+import Recorder from './views/Recorder';
 import ShowSnapCV from './views/ShowSnapCV';
 
     
@@ -13,7 +13,7 @@ const routes = [
     },  
     {
         path: "/create",
-        component: VideoExample
+        component: Recorder
     },
     {
         path: "/show",
