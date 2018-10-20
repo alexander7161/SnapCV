@@ -3,9 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@google-cloud/common": "^0.25.3",
     "@google-cloud/speech": "^2.1.1",
     "all": "0.0.0",
+    "gtoken": "^2.3.0",
     "http2": "^3.3.7",
+    "pify": "^4.0.0",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-multimedia-capture": "^1.2.2",
