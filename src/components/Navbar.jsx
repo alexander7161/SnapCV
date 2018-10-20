@@ -49,7 +49,7 @@ const Navbar = () => {
                 </AppBar>            
             <Route exact path="/" component={LandingPage} />
             <Route path="/show"  component={() => ( 
-                window.location.replace("https://www.infojobs.net/api/oauth/user-authorize/index.xhtml?scope=CV&client_id=a4336c36c6924b6d86a7975d4cd2baca&redirect_uri=https://snapcv-220010.appspot.com/show&response_type=code")
+                window.location.replace("https://www.infojobs.net/api/oauth/user-authorize/index.xhtml?scope=CV&client_id=a4336c36c6924b6d86a7975d4cd2baca&redirect_uri=https://snapcv-220010.appspot.com/show/&response_type=code")
                 )}/>
             {routes.map((route, i) => <RouteWithSubRoutes key={i} {...route} />)}
             </div>
