@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import '../stylesheets/navbar.css';
 import LandingPage from './views/LandingPage';
 import Recorder from './views/Recorder';
 import ShowSnapCV from './views/ShowSnapCV';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
 
-    
-
+// Landing-Page Route is configured seperatly
 const routes = [
-    {
-        path: "/home",
-        component: LandingPage
-    },  
     {
         path: "/create",
         component: Recorder
@@ -33,28 +32,26 @@ const RouteWithSubRoutes = route => (
     />
 );
 
-class Navbar extends React.Component {
-    render() {
-        return (
-            <Router>
-                <div>
-                <ul>
-                    <li>
-                    <Link to="/home">Home</Link>
-                    </li>
-                    <li>
-                    <Link to="/create">VideoExample</Link>
-                    </li>
-                    <li>
-                    <Link to="/show">Your SnapCV</Link>
-                    </li>
-                </ul>
-
-                {routes.map((route, i) => <RouteWithSubRoutes key={i} {...route} />)}
-                </div>
-            </Router>
-        );
-    }
+const Navbar = () => {
+    return (
+        <Router>
+            <div>
+                <AppBar position="static" color="default">
+                    <Toolbar>
+                        <Typography variant="title" color="inherit">
+                                <ul>
+                                    <li><Link className="navLink" to="/">Home</Link></li>
+                                    <li><Link className="navLink" to="/create">VideoExample</Link></li>
+                                    <li><Link className="navLink" to="/show">Your SnapCV</Link></li>
+                                </ul>
+                        </Typography>
+                    </Toolbar>
+                </AppBar>            
+            <Route exact path="/" component={LandingPage} />
+            {routes.map((route, i) => <RouteWithSubRoutes key={i} {...route} />)}
+            </div>
+        </Router>
+    );
 }
 
 export default Navbar;
