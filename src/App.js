@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import './App.css';
 import Navbar from "./components/Navbar";
-import { Redirect } from 'react-router-dom';
 
 class App extends Component {
     render() {
