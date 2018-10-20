@@ -1,4 +1,22 @@
+body {
+    text-align: center;
+}
+
 .recordingTag {
     color: red;
     font-weight: bold;
+}
+
+.button-margin {
+    margin-left: 5px !important;
+    margin-right: 5px !important;
+}
+
+.margin-h-1 {
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+}
+
+.margin-bottom-1 {
+    margin-bottom: 10px !important;
 }

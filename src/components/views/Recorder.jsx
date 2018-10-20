@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import MediaCapturer from 'react-multimedia-capture';
 import '../../stylesheets/recorder.css';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 
 class Recorder extends React.Component {
     constructor() {
@@ -159,13 +161,11 @@ class Recorder extends React.Component {
             onStreamClosed={this.handleStreamClose}
             render={({request, start, stop, pause, resume}) =>
                 <div>
-
-                    {!granted && <button onClick={request}>Get Permission</button>}
-                    <button onClick={start}>Start</button>
-                    <button onClick={stop}>Stop</button>
-                    <button onClick={pause}>Pause</button>
-                    <button onClick={resume}>Resume</button>
-                    <input type='file' onChange={(e) => this.showFile(e.target.files[0])}/>
+                    {!granted && <Button variant="contained" onClick={request}>Get Permission</Button>}
+                    <Button variant="contained" className={'button-margin'} onClick={start}>Start</Button>
+                    <Button variant="contained" className={'button-margin'} onClick={stop}>Stop</Button>
+                    or
+                    <Button variant="contained" className={'button-margin'}><input type='file' onChange={(e) => this.showFile(e.target.files[0])}/></Button>
 
                     {recording ? <p className={'recordingTag'}>recording</p> : null}
                     {paused ? <p className={'recordingTag'}>paused</p> : null}
@@ -175,13 +175,15 @@ class Recorder extends React.Component {
             }/> : null;
 
         let replayButtons = this.state.replay ? <div>
-            <button onClick={this.redo.bind(this)}>Do it again</button>
-            <button>Save to my CV</button>
+            <Button variant="contained" className={'button-margin'} onClick={this.redo.bind(this)}>Do it again</Button>
+            <Button variant="contained" className={'button-margin'}>Save to my CV</Button>
         </div> : null;
 
         return (
             <div ref="app">
-                <h3>Video Recorder</h3>
+                <Typography variant='h4' className={'margin-h-1'}>Record your SnapCV!</Typography>
+                <Typography varant='h5'>Tell us in 1-5 minutes about:</Typography>
+                <Typography varant='h5' className={'margin-bottom-1'}>Who you are, your education, your skills and your work experience</Typography>
                 {mediaCapturer}
                 <div id="replayContainer"></div>
                 {replayButtons}
