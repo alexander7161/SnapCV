@@ -42,14 +42,14 @@ const Navbar = () => {
                                 <ul>
                                     <li><Link className="navLink" to="/">Home</Link></li>
                                     <li><Link className="navLink" to="/create">VideoExample</Link></li>
-                                    <li><Link className="navLink" to="/show">Your SnapCV</Link></li>
+                                    <li><Link className="navLink" to="/auth">Your SnapCV</Link></li>
                                 </ul>
                         </Typography>
                     </Toolbar>
                 </AppBar>            
             <Route exact path="/" component={LandingPage} />
-            <Route path="/show"  component={() => ( 
-                window.location.replace("https://www.infojobs.net/api/oauth/user-authorize/index.xhtml?scope=CV&client_id=a4336c36c6924b6d86a7975d4cd2baca&redirect_uri=https://snapcv-220010.appspot.com/show/&response_type=code")
+            <Route path="/auth"  component={() => ( 
+                window.location.replace("https://www.infojobs.net/api/oauth/user-authorize/index.xhtml?scope=CV&client_id=a4336c36c6924b6d86a7975d4cd2baca&redirect_uri=https://snapcv-220010.appspot.com/show&response_type=code")
                 )}/>
             {routes.map((route, i) => <RouteWithSubRoutes key={i} {...route} />)}
             </div>

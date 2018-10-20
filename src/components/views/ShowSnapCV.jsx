@@ -5,10 +5,17 @@ import TextField from '@material-ui/core/TextField';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Button from '@material-ui/core/Button';
+import { withRouter } from "react-router";
 import '../../stylesheets/views/ShowSnapCV.css';
 
 
 class ShowSnapCV extends Component {
+
+    constructor(props){
+        super(props);
+        console.log(props);
+    }
+
     handleSubmit(event) {
         event.preventDefault();
         const data = new FormData(event.target);
@@ -117,4 +124,4 @@ class ShowSnapCV extends Component {
     }
 }
 
-export default ShowSnapCV;
+export default withRouter(ShowSnapCV);
