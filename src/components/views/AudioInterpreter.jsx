@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-
-
+import {connect} from "react-redux";
+import {setData} from "./store/actions";
 class AudioInterpreter extends Component {
 
     constructor(props) {
@@ -34,6 +34,7 @@ class AudioInterpreter extends Component {
     }
 
     findSkills(text) {
+        const {dispatch} = this.props
         text = text.toLowerCase();
         let skl = [];
 
@@ -46,6 +47,7 @@ class AudioInterpreter extends Component {
         if (text.includes('c++') || text.includes('c plus plus'))
             skl.push('C++');
 
+        dispatch(setData({name: 'Armon', skills: skl.join(', ')}));
         this.setState({
             skills: skl
         })
@@ -66,4 +68,4 @@ class AudioInterpreter extends Component {
     }
 }
 
-export default AudioInterpreter;
+export default connect()(AudioInterpreter);

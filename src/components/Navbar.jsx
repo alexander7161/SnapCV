@@ -42,7 +42,7 @@ const Navbar = () => {
   return (
     <Router>
       <div>
-        <AppBar position="static" color="default">
+        <AppBar position="static" color="primary">
           <Toolbar>
             <Typography variant="title" color="inherit">
               <ul>
@@ -74,7 +74,7 @@ const Navbar = () => {
                 <li>
                   <Link
                     className="navLink"
-                    to="/auth"
+                    to="/show"
                     style={{ position: "absolute", bottom: 10, right: 20 }}
                   >
                     Your SnapCV
