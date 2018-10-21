@@ -66,7 +66,7 @@ const Navbar = () => {
                   <Link
                     className="navLink"
                     to="/create"
-                    style={{ position: "absolute", bottom: 10, right: 160 }}
+                    style={{ position: "absolute", bottom: 10, right: 190 }}
                   >
                     Recorder
                   </Link>
