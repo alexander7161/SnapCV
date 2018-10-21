@@ -1,5 +1,5 @@
 # [START runtime]
-runtime: custom
+runtime: nodejs
 env: flex
 # [END runtime]
 

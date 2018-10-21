@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Redirect, Route, Link } from "react-router-dom";
 import '../stylesheets/navbar.css';
 import LandingPage from './views/LandingPage';
 import Recorder from './views/Recorder';
@@ -9,14 +9,14 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import logo from './SnapCV-logo.jpg';
 
-// Landing-Page Route is configured seperatly
+// Landing-Page and Show Route is configured seperatly
 const routes = [
     {
         path: "/create",
         component: Recorder
     },
     {
-        path: "/show",
+        path: "/show/:code",
         component: ShowSnapCV
     }
 ];
@@ -44,12 +44,15 @@ const Navbar = () => {
 								    <li><img style={{width: 110, height: 60,position: "absolute", bottom: 2, left: 0}} src={logo}></img></li>
                                     <li><Link className="navLink" to="/" style={{position: "absolute", bottom: 10, right: 315}}>Home</Link></li>
                                     <li><Link className="navLink" to="/create" style={{position: "absolute", bottom: 10, right: 160}}>VideoExample</Link></li>
-                                    <li><Link className="navLink" to="/show" style={{position: "absolute", bottom: 10, right: 20}}>Your SnapCV</Link></li>
+                                    <li><Link className="navLink" to="/auth" style={{position: "absolute", bottom: 10, right: 20}}>Your SnapCV</Link></li>
                                 </ul>
                         </Typography>
                     </Toolbar>
                 </AppBar>            
             <Route exact path="/" component={LandingPage} />
+            <Route path="/auth"  component={() => ( 
+                window.location.replace("https://www.infojobs.net/api/oauth/user-authorize/index.xhtml?scope=CV&client_id=a4336c36c6924b6d86a7975d4cd2baca&redirect_uri=https://snapcv-220010.appspot.com/show&response_type=code")
+                )}/>
             {routes.map((route, i) => <RouteWithSubRoutes key={i} {...route} />)}
             </div>
         </Router>
