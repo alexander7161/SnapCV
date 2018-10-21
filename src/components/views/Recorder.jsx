@@ -4,7 +4,7 @@ import '../../stylesheets/recorder.css';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import AudioInterpreter from './AudioInterpreter';
-
+import { withRouter } from "react-router";
 class Recorder extends React.Component {
     constructor() {
         super();
@@ -187,7 +187,7 @@ class Recorder extends React.Component {
         let replayButtons = this.state.replay ? <div>
             <AudioInterpreter audio={this.state.audio}/>
             <Button variant="contained" className={'button-margin'} onClick={this.redo.bind(this)}>Do it again</Button>
-            <Button variant="contained" className={'button-margin'}>Save to my CV</Button>
+            <Button variant="contained" className={'button-margin'} onClick={() => this.props.history.push('/show')}>Save to my CV</Button>
         </div> : null;
 
         return (
@@ -201,4 +201,4 @@ class Recorder extends React.Component {
     }
 }
 
-export default Recorder;
+export default withRouter(Recorder);
