@@ -13,7 +13,7 @@ import { connect } from 'react-redux'
 class ShowSnapCV extends Component {
 
     componentDidMount() {
-        var regex = /\?code=(\S+)&.*/;
+        var regex = /\?code=([^&]+)&.*/;
         const code = this.props.location.search.match(regex)[1];
         console.log(code);
         this.props.dispatch(getKey(code));
