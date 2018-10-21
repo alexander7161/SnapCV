@@ -16,7 +16,7 @@ const routes = [
         component: Recorder
     },
     {
-        path: "/show/:code",
+        path: "/show",
         component: ShowSnapCV
     }
 ];
