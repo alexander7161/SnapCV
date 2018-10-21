@@ -47,9 +47,9 @@ const Navbar = () => {
             <Typography variant="title" color="inherit">
               <ul>
                 <li>
-                  <Typography variant="title" color="inherit">
+                  <h3 className="logo" variant="title" color="inherit">
                     SnapCV
-                  </Typography>
+                  </h3>
                 </li>
                 {/* <li><img style={{width: 110, height: 60,position: "absolute", bottom: 2, left: 0}} src={logo}></img></li> */}
 

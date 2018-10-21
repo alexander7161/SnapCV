@@ -1,30 +1,36 @@
 ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
 
 li {
-    display: inline;
+  display: inline;
 }
 
 .navLink {
-    padding: 10px;
-    text-decoration: none;
+  padding: 10px;
+  text-decoration: none;
 }
 
 .navLink:link {
-    color: black;
+  color: black;
 }
 
-.navLink:hover, .navLink:visited:hover {
-    color: gray;
+.navLink:hover,
+.navLink:visited:hover {
+  color: gray;
 }
 
-.navLink:active, .navLink:visited:active {
-    color: goldenrod;
+.navLink:active,
+.navLink:visited:active {
+  color: goldenrod;
 }
 
 .navLink:visited {
-    color: black;
+  color: black;
+}
+
+.logo {
+  font-family: "Lobster", sans-serif;
 }
