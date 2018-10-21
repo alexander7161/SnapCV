@@ -7,13 +7,16 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Button from '@material-ui/core/Button';
 import { withRouter } from "react-router";
 import '../../stylesheets/views/ShowSnapCV.css';
-
+import { getKey } from './store/actions';
+import { connect } from 'react-redux'
 
 class ShowSnapCV extends Component {
 
-    constructor(props){
-        super(props);
-        console.log(props);
+    componentDidMount() {
+        var regex = /\?code=(\S+)&.*/;
+        const code = this.props.location.search.match(regex)[1];
+        console.log(code);
+        this.props.dispatch(getKey(code));
     }
 
     handleSubmit(event) {
@@ -34,7 +37,7 @@ class ShowSnapCV extends Component {
     render() {
         return (
             <React.Fragment>
-                <form class="form" onSubmit={this.handleSubmit}>
+                <form className="form" onSubmit={this.handleSubmit}>
                     <Typography variant="h6" gutterBottom>
                         Your snapped CV
                     </Typography>
@@ -124,4 +127,7 @@ class ShowSnapCV extends Component {
     }
 }
 
-export default withRouter(ShowSnapCV);
+function mapStateToProps(state) {
+    return {infoJobsApiKey: state.infoJobs};
+}
+export default withRouter(connect(mapStateToProps)(ShowSnapCV));
