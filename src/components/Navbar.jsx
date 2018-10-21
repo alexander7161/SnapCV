@@ -68,7 +68,7 @@ const Navbar = () => {
                     to="/create"
                     style={{ position: "absolute", bottom: 10, right: 160 }}
                   >
-                    VideoExample
+                    Recorder
                   </Link>
                 </li>
                 <li>
