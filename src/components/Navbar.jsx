@@ -7,6 +7,7 @@ import ShowSnapCV from './views/ShowSnapCV';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import logo from './SnapCV-logo.jpg';
 
 // Landing-Page Route is configured seperatly
 const routes = [
@@ -40,9 +41,10 @@ const Navbar = () => {
                     <Toolbar>
                         <Typography variant="title" color="inherit">
                                 <ul>
-                                    <li><Link className="navLink" to="/">Home</Link></li>
-                                    <li><Link className="navLink" to="/create">VideoExample</Link></li>
-                                    <li><Link className="navLink" to="/show">Your SnapCV</Link></li>
+								    <li><img style={{width: 110, height: 60,position: "absolute", bottom: 2, left: 0}} src={logo}></img></li>
+                                    <li><Link className="navLink" to="/" style={{position: "absolute", bottom: 10, right: 315}}>Home</Link></li>
+                                    <li><Link className="navLink" to="/create" style={{position: "absolute", bottom: 10, right: 160}}>VideoExample</Link></li>
+                                    <li><Link className="navLink" to="/show" style={{position: "absolute", bottom: 10, right: 20}}>Your SnapCV</Link></li>
                                 </ul>
                         </Typography>
                     </Toolbar>
