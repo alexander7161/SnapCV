@@ -9,14 +9,13 @@ import { withRouter } from "react-router";
 import '../../stylesheets/views/ShowSnapCV.css';
 import { getKey } from './store/actions';
 import { connect } from 'react-redux'
-
+import {setData} from "./store/actions";
 class ShowSnapCV extends Component {
 
     componentDidMount() {
         var regex = /\?code=([^&]+)&.*/;
-        const code = this.props.location.search.match(regex)[1];
-        console.log(code);
-        this.props.dispatch(getKey(code));
+        const code = this.props.location.search.match(regex) && this.props.location.search.match(regex)[1] || undefined;
+        code&& this.props.dispatch(getKey(code));
     }
 
     handleSubmit(event) {
@@ -34,7 +33,14 @@ class ShowSnapCV extends Component {
 
     }
 
+    handleChange = name => event => {
+        this.props.dispatch(setData({
+            [name]: event.target.value,
+          }));
+      };
+    
     render() {
+        const { name, skills, aboutyou, education, experience } = this.props
         return (
             <React.Fragment>
                 <form className="form" onSubmit={this.handleSubmit}>
@@ -49,11 +55,10 @@ class ShowSnapCV extends Component {
                                 multiline
                                 rowsMax="3"
                                 label="Your Name"
-                                defaultValue="DS"
+                                //defaultValue="DS"
+                                value={name}
+                                onChange={this.handleChange("name")}
                                 fullWidth
-                                InputProps={{
-                                    readOnly: true,
-                                }}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
@@ -66,7 +71,8 @@ class ShowSnapCV extends Component {
                                 multiline
                                 rowsMax="3"
                                 label="About you"
-                                defaultValue="Lorem ipsum..."
+                                value={aboutyou}
+                                onChange={this.handleChange("aboutyou")}
                                 fullWidth
                                 autoComplete="fname"
                             />
@@ -80,7 +86,8 @@ class ShowSnapCV extends Component {
                                 multiline
                                 rowsMax="3"
                                 label="Education"
-                                defaultValue="Lorem ipsuuuum"
+                                value={education}
+                                onChange={this.handleChange("education")}
                                 fullWidth
                                 autoComplete="fname"
                             />
@@ -92,7 +99,8 @@ class ShowSnapCV extends Component {
                                 multiline
                                 rowsMax="3"
                                 label="Skills"
-                                defaultValue="lorem ipsum"
+                                value={skills}
+                                onChange={this.handleChange("skills")}
                                 fullWidth
                                 autoComplete="fname"
                             />
@@ -104,19 +112,20 @@ class ShowSnapCV extends Component {
                                 multiline
                                 rowsMax="4"
                                 label="Work experience"
-                                defaultValue="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."
+                                value={experience}
+                                onChange={this.handleChange("experience")}
                                 fullWidth
                                 autoComplete="fname"
                             />
                         </Grid>
                         <Grid item xs={12}>
                             <FormControlLabel
-                                control={<Checkbox color="primary" name="uploadVideo" value="yes" />}
+                                control={<Checkbox color="secondary" name="uploadVideo" value="yes" />}
                                 label="I want to upload the Video to your CV"
                             />
                         </Grid>
                         <Grid item xs={12}>
-                        <Button type="submit" variant="contained" color="primary">
+                        <Button type="submit" variant="contained" color="secondary" onClick={() => this.props.history.push('/auth')}>
                             Send
                         </Button>
                         </Grid>
@@ -128,6 +137,8 @@ class ShowSnapCV extends Component {
 }
 
 function mapStateToProps(state) {
-    return {infoJobsApiKey: state.infoJobs};
+    return {infoJobsApiKey: state.api.infoJobs,
+            name: state.cv.name,
+            skills: state.cv.skills};
 }
 export default withRouter(connect(mapStateToProps)(ShowSnapCV));
